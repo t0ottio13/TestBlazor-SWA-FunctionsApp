@@ -1,9 +1,15 @@
 ﻿@page "/todo"
+@inject HttpClient Http
 @using CommonData
+
 
 <PageTitle>Todo</PageTitle>
 
 <h1>Todo (@todos.Count(todo => !todo.IsDone))</h1>
+
+
+<input placeholder="Something todo" @bind="newTodo" />
+<button @onclick="AddTodo">Add todo</button>
 
 <ul>
     @foreach (var todo in todos)
@@ -15,11 +21,15 @@
     }
 </ul>
 
-<input placeholder="Something todo" @bind="newTodo" />
-<button @onclick="AddTodo">Add todo</button>
-
 @code {
-    private List<TodoItem> todos = new();
+
+    private List<TodoItem>? todos = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        todos = await Http.GetFromJsonAsync<List<TodoItem>>("api/TodoRead");
+    }
+
     private string? newTodo;
 
     private void AddTodo()
