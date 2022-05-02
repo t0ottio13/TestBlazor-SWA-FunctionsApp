@@ -38,11 +38,11 @@ else
 }
 
 @code {
-    private TodoItem[]? forecasts;
+    private TestItem[]? forecasts;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<TodoItem[]>("api/Function1");
+        forecasts = await Http.GetFromJsonAsync<TestItem[]>("api/Function1");
     }
 
     public class WeatherForecast

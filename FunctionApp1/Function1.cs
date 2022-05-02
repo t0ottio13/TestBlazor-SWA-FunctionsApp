@@ -20,9 +20,9 @@ namespace FunctionApp1
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            List<TodoItem> items = new List<TodoItem>
+            List<TestItem> items = new List<TestItem>
             {
-                new TodoItem
+                new TestItem
                 {
                     Id = 1,
                     Name = "Test1",
@@ -30,7 +30,7 @@ namespace FunctionApp1
                     Status = true,
                 },
 
-                new TodoItem
+                new TestItem
                 {
                     Id=1,
                     Name = "Test2",
