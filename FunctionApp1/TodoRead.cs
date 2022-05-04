@@ -18,9 +18,23 @@ namespace FunctionApp1
         [FunctionName("TodoRead")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
+            [CosmosDB(
+                databaseName: "DatabaseName",
+                collectionName: "CollectionName",
+                ConnectionStringSetting = "CosmosDBConnection"
+                )] TodoItem todoItem,
             ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
+
+            if (todoItem == null)
+            {
+                log.LogInformation($"ToDo item not found");
+            }
+            else
+            {
+                log.LogInformation($"Found ToDo item, Description={todoItem.Title}");
+            }
 
             List<TodoItem> todos = new List<TodoItem>
             {
